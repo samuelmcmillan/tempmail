@@ -1,2 +1,2 @@
 # tempmail
-CLI tool for temporary emails - (1secmail.com)
+Simple Python script for email address generation and reading all in your CLI
