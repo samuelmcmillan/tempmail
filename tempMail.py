@@ -7,8 +7,7 @@ from bs4 import BeautifulSoup
 
 
 def getActiveDomains():
-    domains = requests.get(
-        "https://www.1secmail.com/api/v1/?action=getDomainList")
+    domains = requests.get("https://www.1secmail.com/api/v1/?action=getDomainList")
     if (domains.status_code == 200):
         domains = domains.json()
     return domains
@@ -40,8 +39,7 @@ def getMail(login, domain):
     while True:
         print(f"\nFetching mail for {login}@{domain} ...")
         try:
-            mailbox = requests.get(
-                f"https://www.1secmail.com/api/v1/?action=getMessages&login={login}&domain={domain}")
+            mailbox = requests.get(f"https://www.1secmail.com/api/v1/?action=getMessages&login={login}&domain={domain}")
         except:
             print("API error, trying again in 20 seconds...")
             time.sleep(20)
@@ -58,7 +56,8 @@ def getMail(login, domain):
                         if (message.status_code == 200):
                             message = message.json()
                             message = message['body']
-                            message = BeautifulSoup(message, 'html.parser').get_text(separator="\n")
+                            message = BeautifulSoup(
+                                message, 'html.parser').get_text(separator="\n")
                         else:
                             message = "Error"
                         print(f"\nFrom: {email['from']}")
@@ -71,6 +70,7 @@ def getMail(login, domain):
             except:
                 print("Mailbox empty, auto refreshing in 30 seconds...")
             time.sleep(30)
+
 
 def readExistingMailbox():
     print("\nWarning: The mailboxes are temporary, emails are deleted periodically\n")
